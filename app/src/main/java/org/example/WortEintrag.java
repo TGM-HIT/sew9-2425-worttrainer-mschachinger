@@ -65,6 +65,7 @@ public class WortEintrag implements Serializable {
      * @return true/false
      */
     public boolean checkURL(String url) {
+        /**
 
         int secondSlash = url.indexOf('/') + 1;
         int dot = 0;
@@ -99,7 +100,13 @@ public class WortEintrag implements Serializable {
         }
 
         return true;
+         **/
+        return true;
+        //regex url checker
+        //return url.matches("^(http|https)://[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$");
+
     }
+
 
     /**
      * @return String mit Wort und URL

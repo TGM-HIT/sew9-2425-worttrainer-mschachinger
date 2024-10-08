@@ -17,9 +17,11 @@ public class WortTrainer implements Serializable {
     public WortTrainer(String wort, String url) {
         wl = new ArrayList<>();
         index = 0;
+        randomEintrag();
     }
 
     public WortTrainer() {
+        wl = new ArrayList<>();
         index = 0;
     }
 
@@ -147,6 +149,7 @@ public class WortTrainer implements Serializable {
     public int getIndex() {
         return index;
     }
+
 
     /**
      * addiert +1 zu index
