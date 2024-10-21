@@ -24,6 +24,10 @@ public class WorttrainerView {
 
     }
 
+    /**
+     * Startet den Worttrainer und zeigt JOptionPane Dialoge an
+     * @throws MalformedURLException
+     */
     public void start() throws MalformedURLException {
 
 
@@ -49,7 +53,6 @@ public class WorttrainerView {
         do {
 
             //Zeige bild an
-            ImageIcon icon;
             String link = wortTrainer.getUrl(wortTrainer.getIndex());
             try {
                 URL url = new URI(link).toURL();

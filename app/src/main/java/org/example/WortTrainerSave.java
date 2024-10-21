@@ -10,6 +10,8 @@ import java.io.IOException;
 
 /**
  * Speichern und Laden des aktuellen Zustands des Worttrainers mithilfe einer JSON-Datei
+ * @author marcelschachinger
+ * @√ersion 2024-10-21
  */
 public class WortTrainerSave {
     private WortTrainer wt;

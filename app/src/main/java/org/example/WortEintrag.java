@@ -1,5 +1,6 @@
 package org.example;
 
+import javax.swing.*;
 import java.io.Serializable;
 
 /**
@@ -16,14 +17,14 @@ public class WortEintrag implements Serializable {
             this.wort = wort;
         }
         else {
-            throw new IllegalArgumentException("Das Wort ist zu kurz");
+            JOptionPane.showMessageDialog(null, "Das Wort ist zu kurz");
         }
         if(checkURL(url)) {
             this.url = url;
         }
-//		else {
-//			throw new IllegalArgumentException("Deine Url ist ung�ltig");
-//		}
+		else {
+            JOptionPane.showMessageDialog(null, "Deine Url ist ungültig");
+		}
 
     }
 

@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  * Erstellt einen Worttrainer mit einer Wortliste
  * @author Marcel Schachinger
- * @version 2022-13-09
+ * @version 2024-10-21
  */
 public class WortTrainer implements Serializable {
     private List<WortEintrag> wl;

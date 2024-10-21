@@ -9,6 +9,9 @@ import java.net.MalformedURLException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Testet die Klasse WortTrainer
+ */
 public class WortTrainerTest {
     @Test
     @DisplayName("Test 1 | Check URL Test")
