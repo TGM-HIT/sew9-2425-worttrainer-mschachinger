@@ -101,9 +101,9 @@ public class WortEintrag implements Serializable {
 
         return true;
          **/
-        return true;
+        //return true;
         //regex url checker
-        //return url.matches("^(http|https)://[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$");
+        return url.matches("^(https?:\\/\\/)([\\w.-]+)(\\/[^\\s]*)?$");
 
     }
 

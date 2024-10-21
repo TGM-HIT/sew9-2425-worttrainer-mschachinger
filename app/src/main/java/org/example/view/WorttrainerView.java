@@ -1,5 +1,5 @@
 package org.example.view;
-import org.example.WortTrainer;
+import org.example.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -10,35 +10,45 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+/**
+ * View Klasse für den Worttrainer
+ * @version 2024-09-29
+ */
 public class WorttrainerView {
 
     private WortTrainer wortTrainer;
+    private WortTrainerSave wtSave;
     public WorttrainerView(WortTrainer wortTrainer) {
         this.wortTrainer = wortTrainer;
+        this.wtSave = new WortTrainerSave(wortTrainer);
 
     }
 
     public void start() throws MalformedURLException {
-        /**
 
-        //auswahl ob ein speichestand geladen werden soll
-        int auswahl = JOptionPane.showConfirmDialog(null, "Möchten Sie einen Speicherstand laden?", "Speicherstand", JOptionPane.YES_NO_OPTION);
-        if(auswahl == JOptionPane.YES_OPTION) {
-            //wortTrainer.laden();
+
+        //Fragt ob ein Spielstand geladen werden soll
+        if(JOptionPane.showConfirmDialog(null, "Möchten Sie einen Speicherstand laden?", "Speicherstand", JOptionPane.YES_NO_OPTION)
+                == JOptionPane.YES_OPTION) {
+            //lädt das Spiel mit Hilfe der Speichern Klasse
+            wtSave.load();
         }
 
+
+
         //auswahl ob ein neuer Eintrag hinzugefügt werden soll
-        auswahl = JOptionPane.showConfirmDialog(null, "Möchten Sie einen neuen Eintrag hinzufügen?", "Neuer Eintrag", JOptionPane.YES_NO_OPTION);
+        int auswahl = JOptionPane.showConfirmDialog(null, "Möchten Sie einen neuen Eintrag hinzufügen?", "Neuer Eintrag", JOptionPane.YES_NO_OPTION);
         if(auswahl == JOptionPane.YES_OPTION) {
            String wort = JOptionPane.showInputDialog("Bitte geben Sie das Wort ein");
            String url = JOptionPane.showInputDialog("Bitte geben Sie die URL ein");
            wortTrainer.add(wort, url);
         }
-         */
 
+
+        //Zeigt Bilder an und fragt nach dem Wort bis der Benutzer abbricht
         do {
 
-            //zeige bild an
+            //Zeige bild an
             ImageIcon icon;
             String link = wortTrainer.getUrl(wortTrainer.getIndex());
             try {
@@ -66,23 +76,40 @@ public class WorttrainerView {
 
                 ImageIcon imageIcon = new ImageIcon(image);
                 JOptionPane.showMessageDialog(null, "", "Bildanzeige", JOptionPane.INFORMATION_MESSAGE, imageIcon); // Bild anzeigen
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (URISyntaxException e) {
+            } catch (IOException | URISyntaxException e) {
                 throw new RuntimeException(e);
             }
 
+
             //wort eingabe und prüfen
             String eingabe = JOptionPane.showInputDialog("Bitte geben Sie das Wort ein");
+            int loop = 0;
+            //prüfen ob das wort richtig ist
             if (eingabe.equals(wortTrainer.getWort(wortTrainer.getIndex()))) {
                 wortTrainer.randomEintrag();
                 wortTrainer.addRichtigeWortAnzahl();
                 wortTrainer.addWortAnzahl();
                 //message dialog mit statistik option und ok option
-                JOptionPane.showOptionDialog(null, "Richtig", "Ergebnis", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new String[]{"Statistik", "OK"}, "Statistik");
+
+                loop = JOptionPane.showConfirmDialog(null, "Das ist richtig! Noch ein Wort?", "Ergebnis", JOptionPane.YES_NO_OPTION);
+
+
             } else {
                 wortTrainer.addWortAnzahl();
-                JOptionPane.showMessageDialog(null, "Falsch", "Ergebnis", JOptionPane.INFORMATION_MESSAGE);
+                loop = JOptionPane.showConfirmDialog(null, "Das ist leider falsch! Nochmal versuchen?", "Ergebnis", JOptionPane.YES_NO_OPTION);
+            }
+
+            //Wenn das Spiel beendet wurde
+            if (loop == JOptionPane.NO_OPTION) {
+                //Zeigt Statistik an
+                JOptionPane.showMessageDialog(null, wortTrainer.statistik(), "Statistik", JOptionPane.INFORMATION_MESSAGE);
+                //Fragt ob das Spiel gespeichert werden soll
+                if((JOptionPane.showConfirmDialog(null, "Möchtest du das Spiel speichern?", "Speichern?", JOptionPane.YES_NO_OPTION)
+                    == JOptionPane.YES_OPTION)) {
+                    //speicher das Spiel mithilfe der speichern Klasse
+                    wtSave.save();
+                }
+                break;
             }
         } while (true);
 

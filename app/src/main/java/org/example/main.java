@@ -4,6 +4,9 @@ import org.example.view.WorttrainerView;
 
 import java.net.MalformedURLException;
 
+/**
+ * Main Klasse welche den Wor
+ */
 public class main {
 
     public static void main(String[] args) throws MalformedURLException {
