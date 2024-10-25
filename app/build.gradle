@@ -8,6 +8,18 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    id 'java'
+}
+
+// Javadoc task configuration
+javadoc {
+    options {
+        encoding 'UTF-8'
+        charSet 'UTF-8'
+        author true
+        version true
+        links 'https://docs.oracle.com/en/java/javase/11/docs/api/'
+    }
 }
 
 repositories {
@@ -23,7 +35,7 @@ dependencies {
 
     // This dependency is used by the application.
     implementation libs.guava
-    implementation 'org.json:json:20230227'
+    implementation 'org.json:json:20240303'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
